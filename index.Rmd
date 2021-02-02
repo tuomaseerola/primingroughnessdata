@@ -18,7 +18,9 @@ output:
 
 _Created: 2/2/2021_.
 
-These files contains the data and analysis scripts for "Automatic Responses to Acoustically Rough Intervals" concerning the reaction time data. All data files are available at OSF repository: [https://osf.io/zmjpd/](https://osf.io/zmjpd/).
+These files contains the data and analysis scripts for "Automatic Responses to Acoustically Rough Intervals" concerning the reaction time data. See also the repository related to  [computational_models](https://tuomaseerola.github.io/primingroughness/).
+
+All data files are available at OSF repository: [https://osf.io/zmjpd/](https://osf.io/zmjpd/).
 
 # Main data files
 
@@ -42,9 +44,9 @@ These files contains the data and analysis scripts for "Automatic Responses to A
 
 ## Auxiliary data (Computational models)
 
-Separate files produce the predictions by computational models of roughness and harmonicity. The model predictions are also compared to each other and empirical data (the results rating studies) and the way the predictions are created (separation into High and Low) are also created by the scripts. Also, the stimulus visualisations are included in the scripts (spectrum plots).
+Separate repository produces the predictions by computational models (roughness and harmonicity). The model predictions are also compared to each other and to empirical data (the results past rating studies involving consonance and dissonance). The way the predictions are created (separation into High and Low deltas) are also created by the these analyses. Also, the stimulus visualisations are included in the scripts.
 
-see [computational_models](https://tuomaseerola.github.io/primingroughness/).
+See [computational_models](https://tuomaseerola.github.io/primingroughness/).
 
 ## Run GLMM and contrasts
 
