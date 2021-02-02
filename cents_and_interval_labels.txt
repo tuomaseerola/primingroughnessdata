@@ -1,0 +1,36 @@
+cent,interval_name
+0,unison
+22,syntonic comma (81:80)
+50,equally-tempered quarter tone
+100,equally-tempered semitone
+150,150
+200,equally-tempered major second
+250,250
+300,equally-tempered minor third
+316,just minor third (6:5)
+350,350
+386,just major third (5:4)
+400,equally-tempered major third
+408,Pythagorean major third (81:64)
+450,450
+500,equally-tempered quarter
+550,550
+600,tritone
+650,650
+700,equally-tempered fifth
+702,just fifth (3:2)
+750,750
+800,equally-tempered minor sixth
+814,just minor sixth (8:5)
+850,850
+885,just major sixth (5:3)
+900,equally-tempered major sixth
+950,950
+969,harmonic minor seventh (7:4)
+1000,equally-tempered minor seventh
+1018,just minor seventh (9:5)
+1050,1050
+1088,just major seventh (15:8)
+1100,equally-tempered major seventh
+1150,1150
+1200,octave (2:1)

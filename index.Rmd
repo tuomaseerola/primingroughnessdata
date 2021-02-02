@@ -1,30 +1,113 @@
 ---
-title: "Untitled"
-author: "Tuomas Eerola"
-date: "02/02/2021"
-output: html_document
+title: "Automatic Responses to Acoustically Rough Intervals"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    theme: united
+    highlight: tango
 ---
 
+# Release notes
+
+_Created: 2/2/2021_.
+
+These files contains the data and analysis scripts for "Automatic Responses to Acoustically Rough Intervals" concerning the reaction time data. All data files are available at OSF repository: [https://osf.io/zmjpd/](https://osf.io/zmjpd/).
+
+# Main data files
+
+* `RT_Data_Raw.csv`: PsyToolkit Data pasted into a big csv file.
+* `FULL_Data_munged.csv`: RT_Data_Raw subject to `1_Munge_Script.R`.
+* `Wang_results.csv`: Data for Figure 3.
+* `cents_and_interval_labels.txt`: labels for Figure 1.
+
+# R Scripts
+
+* `1_Munge_Script`: Deletes timeouts, each participants RT data is fitted with Gamma distribution. Outliers (i.e. RTs outside 250ms<RT<95th percentile of Gamma) and incorrect answers are deleted. Note that running this script takes considerable amount of time due to bootstrapping. It can be by-passed by reading the data provided by this script ("FULL_Data_munged.csv").
+* `2_GLMModel.R`: Fits GLMM model to data, tests for significance. Two versions...inverse Gaussian or Gamma as underlying distribution: no difference to pattern of significance.
+* `3_Contrasts_Roughness_Harmonicity.R`: Make sure script 2 is run first; planned contrasts for High and Low Delta_Roughness and Delta_Harmonicity. 
+* `4_Correlation_Wang.R`: Simple correlation test between Delta_Roughness for the expanded data to include artificial intervals. Uses raw (i.e. untransformed Wang roughness values). 
+* `5_Roughness_LHE.R`: Compares Low vs (High and Extreme) with Low vs High vs Extreme. [NB: as we collapse across each participant to create a priming index, we switch to simple lm rather than glmer (i.e we don't have random effect of participant).
+* `6_Figure_1.R`: creates Figure 1, needs cents_and_interval_labels.txt
+* `7_Figure_2.R`: creates Figure 2
+* `8_Figure_3.R`: creates Figure 3, needs Wang_results.csv
+* `9_Supplementary_Wilcox_Test.R`: Tests for congruency effects for each pair of intervals seperately
+* `10_KSTESTS.R`: Checks that data fits Gamma distributions
+
+## Auxiliary data (Computational models)
+
+Separate files produce the predictions by computational models of roughness and harmonicity. The model predictions are also compared to each other and empirical data (the results rating studies) and the way the predictions are created (separation into High and Low) are also created by the scripts. Also, the stimulus visualisations are included in the scripts (spectrum plots).
+
+see [computational_models](https://tuomaseerola.github.io/primingroughness/).
+
+## Run GLMM and contrasts
+
+```{r,echo=TRUE,results='asis',warning=FALSE,message=FALSE}
+# Only run if needed.
+# source('1_Munge_Script.R')
+```
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,comment=NA)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r,echo=T,results='asis',warning=FALSE,message=FALSE,include=TRUE,cache=TRUE}
+source('2_GLMModel.R')
+source('3_Contrasts_Roughness_Harmonicity.R')
 ```
 
-## Including Plots
+## Correlations between Roughness and priming
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r,echo=T,warning=FALSE,message=FALSE,include=TRUE}
+source('4_Correlation_Wang.R')
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Additional contrasts (high and extreme)
+
+```{r,echo=T,results='asis',warning=FALSE,message=FALSE,include=TRUE}
+source('5_Roughness_LHE.R')
+```
+
+## Additional tests
+```{r,echo=T,results='asis',warning=FALSE,message=FALSE,include=TRUE}
+source('9_Supplementary_Wilcox_Test.R')
+source('10_KSTESTS.R')
+```
+
+# Figures
+
+* `6_Figure_2.R`: creates Figure 1, needs `cents_and_interval_labels.txt`.
+
+* `7_Figure_2.R`: creates Figure 2
+
+* `8_Figure_3.R`: creates Figure 3, needs `Wang_results.csv`
+
+## Create Figure 1
+
+```{r, echo=T,warning=FALSE,message=FALSE}
+source('7_Figure_1.R')
+```
+
+## Create Figure 2
+
+```{r, echo=T,warning=FALSE,message=FALSE}
+source('6_Figure_2.R')
+```
+
+## Create Figure 3
+
+```{r, echo=T,warning=FALSE,message=FALSE}
+source('8_Figure_3.R')
+```
+
+# Appendix
+
+```{r, echo=T}
+sessionInfo()
+```
